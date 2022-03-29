@@ -1,6 +1,7 @@
 # Doodlive-test
 
 ## Description
+
 A micro web app which have login, chat, play video, logout functionalities.
 
 `Followings are used:`
@@ -14,13 +15,36 @@ A micro web app which have login, chat, play video, logout functionalities.
 
 You have to install node and yarn environment first.
 
-Download modules
-```
+## Project setup
+
+```text
 yarn install
 ```
 
-Build & Run project
+### Compiles and hot-reloads for development
+
+```text
+yarn serve
 ```
+
+### Compiles and minifies for production
+
+```text
 yarn build
-yarn start
 ```
+
+### Run your unit tests
+
+```text
+yarn test:unit
+```
+
+### Lints and fixes files
+
+```text
+yarn lint
+```
+
+### Customize configuration
+
+See [Configuration Reference](https://cli.vuejs.org/config/).
