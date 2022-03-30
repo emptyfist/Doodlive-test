@@ -23,11 +23,13 @@ class AuthService {
   }
 
   register(username: string, email: string, password: string): Promise<ResponseData> {
+    console.log('AuthServices.ts - line 26, email : ' + email + ', password : ' + password)
     return firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {
         console.log(res)
+        console.log('AuthServices.ts - line 32')
         return Promise.resolve({ code: true, msg: '' })
       })
       .catch((error) => {

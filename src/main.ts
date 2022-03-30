@@ -3,9 +3,7 @@ import { createApp } from 'vue'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics"
-// import VeeValidate from 'vee-validate'
-import 'bootstrap/dist/js/bootstrap.bundle'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import "@/assets/scss/main.scss"
 
 import App from './App.vue'
 import router from './router'
