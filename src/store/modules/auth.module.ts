@@ -1,11 +1,11 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
 import AuthService from '@/services/AuthService'
 import { UserCredential } from "firebase/auth"
-import type { UserData, LoginData, RegisterData, ResponseData } from '@/@types'
+import type { LoginData, RegisterData, ResponseData } from '@/@types'
 
 const storedUser = localStorage.getItem('user')
 
-@Module({ namespaced: true })
+@Module({ namespaced: true, name: 'AuthModule' })
 class User extends VuexModule {
   public status = storedUser ? { loggedIn: true } : { loggedIn: false }
   public user = storedUser ? JSON.parse(storedUser) : null
@@ -44,8 +44,10 @@ class User extends VuexModule {
 
   @Action({ rawError: true })
   async login(data: LoginData): Promise<UserCredential> {
+    console.log('1')
     return await AuthService.login(data.email, data.password).then(
       user => {
+        console.log('4')
         this.context.commit('loginSuccess', user)
         return Promise.resolve(user)
       },
@@ -114,13 +116,11 @@ class User extends VuexModule {
   }
 
   get isLoggedIn(): boolean {
-    return this.status.loggedIn;
+    return this.status.loggedIn
   }
 
-  get loggedInUser(): UserData {
-    return {
-      email: this.user?.email != null ? this.user?.email : ''
-    }
+  get loggedInUser(): UserCredential {
+    return this.user
   }
 
 }

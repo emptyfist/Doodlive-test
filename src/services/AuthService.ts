@@ -15,8 +15,10 @@ import type { ResponseData } from '@/@types'
 
 class AuthService {
   async login(email: string, password: string): Promise<UserCredential> {
+    console.log('2')
     return await signInWithEmailAndPassword(getAuth(), email, password)
       .then((user: UserCredential) => {
+        console.log('3')
         return Promise.resolve(user)
       })
       .catch((error) => {

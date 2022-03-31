@@ -8,16 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-  // import { Options, Vue } from 'vue-class-component'
   import Navbar from "@/components/Navbar.vue"
-
-  // console.log("APP.vue: setup call")
-
-  // @Options({
-  //   components: {
-  //     Navbar
-  //   }
-  // })
 </script>
 
 <style lang="scss">

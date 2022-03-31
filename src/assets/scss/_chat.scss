@@ -1,0 +1,32 @@
+.chat-container {
+  max-width: 500px;
+  position: relative;
+  .bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  .send-message-form {
+    border: 1.5px solid #f6f8ff;
+    box-sizing: border-box;
+    border-radius: 8px;
+    input {
+      padding: 8px 10px;
+    }
+    button {
+      border: none;
+      background-color: #f6f8ff;
+      color: #383066;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 145%;
+      letter-spacing: 0.4px;
+      border-radius: 8px;
+      align-items: center;
+      text-align: center;
+    }
+  }
+}

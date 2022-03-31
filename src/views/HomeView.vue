@@ -2,19 +2,19 @@
   <div class="home">
     <div class="container">
       <div class="row">
-        <div class="md-8">
+        <div class="col-md-8">
           <video
             id="dPlayerVideoMain"
             ref="refdVideo"
             width="100%"
             height="640"
             controls
-            autoplay=""
-            muted="muted"
           >
           </video>
         </div>
-        <div class="md-4"></div>
+        <div class="col-md-4 chat-container">
+          <ChatItem />
+        </div>
       </div>
     </div>
   </div>
@@ -23,11 +23,13 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import Hls from 'hls.js'
+import ChatItem from '@/components/ChatItem.vue'
 
 @Options({
   props: {
   },
   components: {
+    ChatItem
   }
 })
 export default class HomeView extends Vue {
