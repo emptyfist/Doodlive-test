@@ -1,14 +1,14 @@
 <template>
-  <div class="row align-items-center justify-content-md-center auth-container verify-email-container">
-    <div class="card col-md-5">
+  <div class="row horizontal-center vertical-center auth-container justify-content-md-center verify-email-container">
+    <div class="card col-md-12">
       <div class="card-body">
         <h5 class="card-title">
           Email needs to be verified
         </h5>
-        <div class="mb-3">
+        <div class="mb-3 dark-text">
           We have sent you a verification Email.
         </div>
-        <div class="mb-3">
+        <div class="mb-6 center-aligned-text">
           <button
             :disabled="isReady"
             type="submit"
