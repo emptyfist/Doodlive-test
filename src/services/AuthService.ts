@@ -9,20 +9,19 @@ import {
   User,
   sendEmailVerification,
   sendPasswordResetEmail,
-  UserCredential,
-  // UserInfo
+  UserCredential
 } from "firebase/auth"
 import type { ResponseData } from '@/@types'
 
 class AuthService {
-  async login(email: string, password: string): Promise<ResponseData> {
+  async login(email: string, password: string): Promise<UserCredential> {
     return await signInWithEmailAndPassword(getAuth(), email, password)
-      .then(() => {
-        return Promise.resolve({ code: true, msg: '' })
+      .then((user: UserCredential) => {
+        return Promise.resolve(user)
       })
       .catch((error) => {
         alert(error.code)
-        return Promise.reject({ code: false, msg: '' })
+        return Promise.reject(null)
       })
   }
 

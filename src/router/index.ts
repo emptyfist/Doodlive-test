@@ -15,6 +15,12 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/home',
+    redirect: () => {
+      return { path: '/' }
+    }
+  },
+  {
     path: '/signup',
     name: 'signup',
     component: () =>

@@ -79,8 +79,7 @@ export default class LoginView extends Vue {
 
     if (this.user.email && this.user.password) {
       await this.login(this.user).then(
-        (data: ResponseData) => {
-          console.log(data)
+        () => {
           this.$router.push("/home")
         },
         (error: ResponseData) => {

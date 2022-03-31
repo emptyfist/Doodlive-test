@@ -33,18 +33,18 @@
         >
           Logout
         </a>
-        {{ user?.email }}
+        {{ loggedInUser?.email }}
         <img
-          v-if="user?.photoURL != null"
-          :src="user?.photoURL"
-          class="img-fluid"
+          v-if="loggedInUser?.photoURL != null"
+          :src="loggedInUser?.photoURL"
+          class="img-fluid profile-image"
           style="height: 20px"
           alt="profileImage"
         />
         <img
-          v-if="user?.photoURL == null"
+          v-if="loggedInUser?.photoURL == null"
           src="../assets/avatar.png"
-          class="img-fluid"
+          class="img-fluid profile-image"
           alt="profileImage"
         />
       </nav>
@@ -55,13 +55,16 @@
 <script lang="ts">
 import { Vue } from 'vue-class-component'
 import { namespace } from 'vuex-class'
-import type { ResponseData } from '@/@types'
+import type { ResponseData, UserData } from '@/@types'
 
 const Auth = namespace("Auth")
 
 export default class Navbar extends Vue {
   @Auth.Getter
-  private isLoggedIn!: boolean;
+  private isLoggedIn!: boolean
+
+  @Auth.Getter
+  private loggedInUser!: UserData
 
   @Auth.Action
   private logOut!: () => Promise<ResponseData>
@@ -69,7 +72,7 @@ export default class Navbar extends Vue {
   handleSignOut() {
     this.logOut().then(
         () => {
-          this.$router.push("/")
+          this.$router.push("/login")
         },
         (error) => {
           console.log(error)

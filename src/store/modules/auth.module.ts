@@ -1,5 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
 import AuthService from '@/services/AuthService'
+import { UserCredential } from "firebase/auth"
 import type { UserData, LoginData, RegisterData, ResponseData } from '@/@types'
 
 const storedUser = localStorage.getItem('user')
@@ -10,11 +11,11 @@ class User extends VuexModule {
   public user = storedUser ? JSON.parse(storedUser) : null
 
   @Mutation
-  public loginSuccess(user: UserData): void {
+  public loginSuccess(user: UserCredential): void {
     this.status.loggedIn = true
-    this.user = user
+    this.user = user?.user != null ? user?.user : null
     localStorage.setItem('user', JSON.stringify({
-      email: user.email
+      email: this.user?.email != null ? this.user?.email : ''
     }));
   }
 
@@ -42,7 +43,7 @@ class User extends VuexModule {
   }
 
   @Action({ rawError: true })
-  async login(data: LoginData): Promise<ResponseData> {
+  async login(data: LoginData): Promise<UserCredential> {
     return await AuthService.login(data.email, data.password).then(
       user => {
         this.context.commit('loginSuccess', user)
