@@ -156,27 +156,6 @@ input:focus ~ .highlight {
   to 	{ width: 0; background: transparent; }
 }
 
-button.submitting::after {
-  content: '';
-  position: absolute;
-  width: 1rem;
-  height: 1rem;
-  top: calc(50% - 0.5rem);
-  left: 1.5rem;
-  border-radius: 2em;
-  border-color: transparent transparent black black;
-  border-style: solid;
-  border-width: 0.15em;
-  animation: spinner-rotation 0.75s infinite;
-  animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-@keyframes spinner-rotation {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 @import './_auth.scss';
 @import './_navbar.scss';

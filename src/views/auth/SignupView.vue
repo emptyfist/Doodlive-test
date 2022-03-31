@@ -1,46 +1,51 @@
 <template>
   <div class="align-items-center horizontal-center vertical-center auth-container register-container">
-    <Form
-      v-slot="{ loading }"
-      :validation-schema="schema"
-      @submit="userRegistration"
-    >
-      <h3>Sign Up</h3>
-      <div class="form-group">
-        <Field
-          name="name"
+    <form @submit.prevent="userRegistration">
+      <h2>Sign Up</h2>
+      <div class="form-group mt-4">
+        <input
+          v-model="user.name"
           type="text"
+          required
         />
         <span class="highlight"></span>
         <span class="bar"></span>
         <label>Name</label>
-        <ErrorMessage name="name" />
       </div>
       <div class="form-group">
-        <Field
-          name="email"
+        <input
+          v-model="user.email"
           type="email"
+          required
         />
         <span class="highlight"></span>
         <span class="bar"></span>
         <label>Email address</label>
-        <ErrorMessage name="email" />
       </div>
       <div class="form-group">
-        <Field
-          name="password"
+        <input
+          v-model="user.password"
           type="password"
+          required
         />
         <span class="highlight"></span>
         <span class="bar"></span>
         <label>Password</label>
-        <ErrorMessage name="password" />
+      </div>
+      <div class="form-group mb-4">
+        <input
+          v-model="confirmPassword"
+          type="password"
+          required
+        />
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>Confirm Password</label>
       </div>
       <button
         type="submit"
-        class="btn btn-dark btn-register"
+        class="btn btn-dark btn-register mt-2"
         :disabled="loading"
-        :class="{ 'submitting': loading }"
       >
         <span
           v-show="loading"
@@ -48,7 +53,7 @@
         ></span>
         <span>Continue</span>
       </button>
-      <p class="forgot-password text-right">
+      <p class="forgot-password text-right mt-2">
         Already registered
         <router-link
           :to="{name: 'login'}"
@@ -82,6 +87,7 @@ const Auth = namespace("Auth")
 })
 export default class SignupView extends Vue {
   private user: RegisterData = { name: '', email: '', password: '' }
+  private confirmPassword = ''
   private loading = false
   private message = ''
   private schema = yup.object().shape({
@@ -93,29 +99,30 @@ export default class SignupView extends Vue {
   @Auth.Action
   private register!: (data: RegisterData) => Promise<ResponseData>
 
-  userRegistration(values: RegisterData) {
-    // return new Promise(resolve => {        
-    //   setTimeout(() => {
-    //     resolve(JSON.stringify(values, null, 2));
-    //   }, 2000);
-    // })
-
+  userRegistration() {
     this.loading = false
-    console.log('values = ', values)
-    if (values.name && values.email && values.password) {
-      console.log('trying to register')
-      this.loading = true
-      this.register(values).then(
-        (data: ResponseData) => {
-          console.log('date : ' + data + ', Trying to login !')
-          this.$router.push("/login")
-        },
-        (error: ResponseData) => {
-          this.loading = false
-          this.message = error.msg
-        }
-      )
+    if (this.user.name == '' || this.user.email == '' || this.user.password == '') {
+      alert('Please make sure the input values !')
+      return
     }
+
+    console.log('this.user.password = ', this.user.password)
+    console.log('this.confirmPassword = ', this.confirmPassword)
+    if (this.user.password != this.confirmPassword) {
+      alert('Passwords do not match !')
+      return
+    }
+    
+    this.loading = true
+    this.register(this.user).then(
+      () => {
+        this.$router.push("/login")
+      },
+      (error: ResponseData) => {
+        this.loading = false
+        this.message = error.msg
+      }
+    )
   }
 }
 </script>

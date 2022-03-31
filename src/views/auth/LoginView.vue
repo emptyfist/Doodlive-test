@@ -1,8 +1,8 @@
 <template>
   <div class="align-items-center horizontal-center vertical-center auth-container login-container">
     <form @submit.prevent="userLogin">
-      <h3>Sign In</h3>
-      <div class="form-group">
+      <h2>Sign In</h2>
+      <div class="form-group mt-4">
         <input
           v-model="user.email"
           type="email"
@@ -24,7 +24,7 @@
       </div>
       <button
         type="submit"
-        class="btn btn-dark btn-login"
+        class="btn btn-dark btn-login mt-2"
         :disabled="loading"
       >
         <span
@@ -38,6 +38,14 @@
           to="/forgot-password"
         >
           Forgot password ?
+        </router-link>
+      </p>
+      <p class="forgot-password text-right mt-2 mb-4">
+        Not registered ?
+        <router-link
+          to="/signup"
+        >
+          Create Account
         </router-link>
       </p>
     </form>

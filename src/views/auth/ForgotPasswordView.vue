@@ -1,7 +1,7 @@
 <template>
   <div class="align-items-center horizontal-center vertical-center auth-container">
     <form @submit.prevent="forgetPasswordHandler">
-      <h3>Sign In</h3>
+      <h2>Reset Password</h2>
       <div class="form-group">
         <label>Email address</label>
         <input
