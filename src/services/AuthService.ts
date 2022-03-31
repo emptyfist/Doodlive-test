@@ -30,7 +30,6 @@ class AuthService {
     const provider = new GoogleAuthProvider()
     return signInWithPopup(getAuth(), provider)
       .then(() => {
-        console.log("User signed in")
         return Promise.resolve({ code: true, msg: '' })
       })
       .catch((error) => {
@@ -46,11 +45,9 @@ class AuthService {
   }
 
   async register(username: string, email: string, password: string): Promise<ResponseData> {
-    console.log('AuthServices.ts - line 49, email : ' + email + ', password : ' + password)
     return await createUserWithEmailAndPassword(getAuth(), email, password)
       .then((user: UserCredential) => {
         if (user) {
-          console.log('AuthServices.ts - line 53')
           updateProfile(getAuth().currentUser as User, {
             displayName: '',
             photoURL: ''
@@ -79,8 +76,7 @@ class AuthService {
 
   async resendEmailVerification(): Promise<ResponseData> {
     return await sendEmailVerification(getAuth().currentUser as User)
-      .then((user) => {
-        console.log(user)
+      .then(() => {
         return Promise.resolve({ code: true, msg: '' })
       })
       .catch((error) => {

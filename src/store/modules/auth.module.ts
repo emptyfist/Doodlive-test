@@ -67,11 +67,9 @@ class User extends VuexModule {
 
   @Action({ rawError: true })
   async register(data: RegisterData): Promise<ResponseData> {
-    console.log('auth.module.ts - line 66')
     return await AuthService.register(data.name, data.email, data.password).then(
       response => {
         this.context.commit('registerSuccess')
-        console.log('auth.module.ts - line 70')
         return Promise.resolve(response)
       },
       error => {
@@ -109,7 +107,6 @@ class User extends VuexModule {
         return Promise.resolve(user)
       },
       error => {
-        console.log(error)
         return Promise.reject({ code: false, msg: error.msg });
       }
     );
