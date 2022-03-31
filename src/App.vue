@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <!-- <Navbar /> -->
+      <Navbar />
       <router-view />
     </div>
   </div>
@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
   // import { Options, Vue } from 'vue-class-component'
-  // import Navbar from "@/components/Navbar.vue"
+  import Navbar from "@/components/Navbar.vue"
 
   // console.log("APP.vue: setup call")
 

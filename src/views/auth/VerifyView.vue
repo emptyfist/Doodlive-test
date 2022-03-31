@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-md-center auth-container verify-email-container">
+  <div class="row align-items-center justify-content-md-center auth-container verify-email-container">
     <div class="card col-md-5">
       <div class="card-body">
         <h5 class="card-title">

@@ -178,4 +178,5 @@ button.submitting::after {
 }
 
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
-@import './auth.scss';
+@import './_auth.scss';
+@import './_navbar.scss';

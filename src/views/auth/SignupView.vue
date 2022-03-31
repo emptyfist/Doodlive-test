@@ -1,5 +1,5 @@
 <template>
-  <div class="horizontal-center vertical-center auth-container register-container">
+  <div class="align-items-center horizontal-center vertical-center auth-container register-container">
     <Form
       v-slot="{ loading }"
       :validation-schema="schema"

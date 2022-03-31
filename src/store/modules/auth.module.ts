@@ -6,8 +6,8 @@ const storedUser = localStorage.getItem('user')
 
 @Module({ namespaced: true })
 class User extends VuexModule {
-  public status = storedUser ? { loggedIn: true } : { loggedIn: false };
-  public user = storedUser ? JSON.parse(storedUser) : null;
+  public status = storedUser ? { loggedIn: true } : { loggedIn: false }
+  public user = storedUser ? JSON.parse(storedUser) : null
 
   @Mutation
   public loginSuccess(user: UserData): void {
@@ -118,6 +118,13 @@ class User extends VuexModule {
   get isLoggedIn(): boolean {
     return this.status.loggedIn;
   }
+
+  get loggedInUser(): UserData {
+    return {
+      email: this.user?.email != null ? this.user?.email : ''
+    }
+  }
+
 }
 
 export default User;

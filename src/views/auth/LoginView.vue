@@ -1,5 +1,5 @@
 <template>
-  <div class="horizontal-center vertical-center auth-container login-container">
+  <div class="align-items-center horizontal-center vertical-center auth-container login-container">
     <form @submit.prevent="userLogin">
       <h3>Sign In</h3>
       <div class="form-group">

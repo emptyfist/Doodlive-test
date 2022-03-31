@@ -9,7 +9,8 @@ import {
   User,
   sendEmailVerification,
   sendPasswordResetEmail,
-  UserCredential
+  UserCredential,
+  // UserInfo
 } from "firebase/auth"
 import type { ResponseData } from '@/@types'
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="horizontal-center vertical-center auth-container">
+  <div class="align-items-center horizontal-center vertical-center auth-container">
     <form @submit.prevent="forgetPasswordHandler">
       <h3>Sign In</h3>
       <div class="form-group">
