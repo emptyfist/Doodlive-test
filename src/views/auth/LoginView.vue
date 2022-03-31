@@ -1,33 +1,37 @@
 <template>
-  <div class="vue-tempalte">
+  <div class="horizontal-center vertical-center auth-container login-container">
     <form @submit.prevent="userLogin">
       <h3>Sign In</h3>
       <div class="form-group">
-        <label>Email address</label>
         <input
           v-model="user.email"
           type="email"
-          class="form-control form-control-lg"
+          required
         />
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>Email address</label>
       </div>
       <div class="form-group">
-        <label>Password</label>
         <input
           v-model="user.password"
           type="password"
-          class="form-control form-control-lg"
+          required
         />
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>Password</label>
       </div>
       <button
         type="submit"
-        class="btn btn-dark btn-lg btn-block"
+        class="btn btn-dark btn-login"
         :disabled="loading"
       >
         <span
           v-show="loading"
           class="spinner-border spinner-border-sm"
         ></span>
-        <span>Sign In</span>
+        <span>Continue</span>
       </button>
       <p class="forgot-password text-right mt-2 mb-4">
         <router-link
@@ -62,27 +66,21 @@ export default class LoginView extends Vue {
   @Auth.Action
   private login!: (data: LoginData) => Promise<ResponseData>
 
-  userLogin() {
+  async userLogin() {
     this.loading = true;
-    // this.$validator.validateAll().then((isValid: boolean) => {
-      /*if (!isValid) {
-        this.loading = false;
-        return;
-      }*/
 
-      if (this.user.email && this.user.password) {
-        this.login(this.user).then(
-          (data: ResponseData) => {
-            console.log(data)
-            this.$router.push("/home")
-          },
-          (error: ResponseData) => {
-            this.loading = false
-            this.message = error.msg
-          }
-        );
-      }
-    // });
+    if (this.user.email && this.user.password) {
+      await this.login(this.user).then(
+        (data: ResponseData) => {
+          console.log(data)
+          this.$router.push("/home")
+        },
+        (error: ResponseData) => {
+          this.loading = false
+          this.message = error.msg
+        }
+      );
+    }
   }
 }
 </script>
