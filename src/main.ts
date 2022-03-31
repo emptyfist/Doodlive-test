@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics"
+
 import "@/assets/scss/main.scss"
 
 import App from './App.vue'
