@@ -1,41 +1,86 @@
-import firebase from 'firebase/compat/app'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  updateProfile,
+  User,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  UserCredential
+} from "firebase/auth"
 import type { ResponseData } from '@/@types'
 
 class AuthService {
-  login(email: string, password: string): Promise<ResponseData> {
-    return firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
+  async login(email: string, password: string): Promise<UserCredential> {
+    return await signInWithEmailAndPassword(getAuth(), email, password)
+      .then((user: UserCredential) => {
+        return Promise.resolve(user)
+      })
+      .catch((error) => {
+        alert(error.code)
+        return Promise.reject(null)
+      })
+  }
+
+  loginGoogle(): Promise<ResponseData> {
+    const provider = new GoogleAuthProvider()
+    return signInWithPopup(getAuth(), provider)
       .then(() => {
-        localStorage.setItem('user', JSON.stringify({
-          email: email
-        }));
         return Promise.resolve({ code: true, msg: '' })
       })
       .catch((error) => {
-        alert(error.message)
+        alert(error.code)
         return Promise.reject({ code: false, msg: '' })
-      });
+      })
   }
 
-  logout() {
-    localStorage.removeItem('user');
+  logout(): Promise<ResponseData> {
+    return signOut(getAuth()).then(() => {
+      return Promise.resolve({ code: true, msg: '' });
+    });
   }
 
-  register(username: string, email: string, password: string): Promise<ResponseData> {
-    console.log('AuthServices.ts - line 26, email : ' + email + ', password : ' + password)
-    return firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((res) => {
-        console.log(res)
-        console.log('AuthServices.ts - line 32')
+  async register(username: string, email: string, password: string): Promise<ResponseData> {
+    return await createUserWithEmailAndPassword(getAuth(), email, password)
+      .then((user: UserCredential) => {
+        if (user) {
+          updateProfile(getAuth().currentUser as User, {
+            displayName: '',
+            photoURL: ''
+          })
+          sendEmailVerification(getAuth().currentUser as User)
+          return Promise.resolve({ code: true, msg: '' })
+        }
+        return Promise.resolve({ code: false, msg: '' })
+      })
+      .catch((error) => {
+        alert(error.code)
+        return Promise.reject({ code: false, msg: '' })
+      })
+  }
+
+  async forgetPassword(email: string): Promise<ResponseData> {
+    return await sendPasswordResetEmail(getAuth(), email)
+      .then(() => {
+        alert("PasswordReset Send")
         return Promise.resolve({ code: true, msg: '' })
       })
       .catch((error) => {
-        alert(error.message)
-        return Promise.reject({ code: false, msg: '' })
-      });
+        return Promise.reject({ code: false, msg: error.code })
+      })
+  }
+
+  async resendEmailVerification(): Promise<ResponseData> {
+    return await sendEmailVerification(getAuth().currentUser as User)
+      .then(() => {
+        return Promise.resolve({ code: true, msg: '' })
+      })
+      .catch((error) => {
+        return Promise.resolve({ code: true, msg: error.code })
+      })
   }
 }
 

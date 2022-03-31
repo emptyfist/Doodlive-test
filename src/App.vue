@@ -1,14 +1,35 @@
 <template>
-  <router-view />
+  <div>
+    <div class="container">
+      <Navbar />
+      <router-view />
+    </div>
+  </div>
 </template>
+
+<script lang="ts" setup>
+  // import { Options, Vue } from 'vue-class-component'
+  import Navbar from "@/components/Navbar.vue"
+
+  // console.log("APP.vue: setup call")
+
+  // @Options({
+  //   components: {
+  //     Navbar
+  //   }
+  // })
+</script>
 
 <style lang="scss">
 #app {
+  width: 100%;
+  height: 100%;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #fff;
+  background-color: #1c1833;
 }
 
 nav {
