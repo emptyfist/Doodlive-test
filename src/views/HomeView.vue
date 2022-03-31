@@ -47,6 +47,7 @@ export default class HomeView extends Vue {
           console.log(
             'manifest loaded, found ' + data.levels.length + ' quality level'
           )
+          console.log('Trying to load and play a streaming video.')
           // video.play()
         })
       });

@@ -53,7 +53,10 @@ html,
   flex-direction: column;    
 }
 .horizontal-center {
-  margin: auto;
+  margin: auto !important;
+}
+.center-aligned-text {
+  text-align: center !important;
 }
 .inner-block {
   width: 450px;
@@ -76,6 +79,9 @@ html,
 }
 label {
   font-weight: 500;
+}
+.dark-text {
+  color: black;
 }
 .forgot-password,
 .forgot-password a {

@@ -1,6 +1,6 @@
 .auth-container {
   padding: 40px 0 25px 0;
-  width: 400px;
+  max-width: 400px;
   margin-top: 100px;
 }
 
@@ -22,4 +22,7 @@
   &:hover {
     background-color: #00eb51;
   }
+}
+.verify-email-container {
+  width: 330px;
 }
