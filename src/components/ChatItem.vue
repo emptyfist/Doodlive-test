@@ -8,9 +8,10 @@
         </p>
       </div>
       <MessageItem
-        v-for="{ id, text, userPhotoURL, userName, userId } in messages"
+        v-for="{ id, text, userPhotoURL, userName, email, userId } in messages"
         :key="id"
         :username="userName"
+        :email="email"
         :photo-url="userPhotoURL"
         :sender="userId === user?.uid"
       >
@@ -46,6 +47,8 @@
 <script lang="ts">
 import { ref, watch, nextTick } from 'vue'
 import { getModule } from 'vuex-module-decorators'
+import { DocumentData } from 'firebase/firestore'
+import _ from "lodash"
 import MessageItem from './MessageItem.vue'
 import { useChat } from '@/firebase-chat'
 import store from '@/store'
@@ -62,15 +65,12 @@ export default {
     const isLoggedIn = authModule.isLoggedIn
 
     const { messages, sendMessage } = useChat()
-    console.log('ChatItem.vue -> messages : ', messages)
 
     const bottom = ref(null)
     watch(
-      [messages, () => messages],
-      (newVal, oldVal) => {
+      (messages: Array<DocumentData>) => _.cloneDeep(messages),
+      (/*newVal, oldVal*/) => {
         nextTick(() => {
-          console.log('newVal = ', newVal)
-          console.log('oldVal = ', oldVal)
           // bottom.value?.scrollIntoView({ behavior: 'smooth' })
         })
       },

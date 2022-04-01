@@ -12,7 +12,7 @@
         class="text w-3/4"
       >
         <span class="username">
-          @{{ username }}:
+          {{ email }}:
         </span>
         <slot></slot>
       </div>
@@ -26,6 +26,7 @@ import AvatarItem from './AvatarItem.vue'
 export default {
   components: { AvatarItem },
   props: {
+    email: { type: String, default: '' },
     username: { type: String, default: '' },
     photoUrl: { type: String, default: '' },
     sender: { type: Boolean, default: false }
