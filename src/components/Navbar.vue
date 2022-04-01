@@ -53,24 +53,28 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component'
-import { namespace } from 'vuex-class'
-import type { ResponseData, UserData } from '@/@types'
+import { Options, Vue } from 'vue-class-component'
+import { namespace } from "vuex-class"
+import type { UserData } from '@/@types'
 
-const Auth = namespace("Auth")
+const Auth = namespace("AuthModule")
 
+@Options({
+  components: {
+  }
+})
 export default class Navbar extends Vue {
   @Auth.Getter
-  private isLoggedIn!: boolean
+  public isLoggedIn!: boolean
 
-  @Auth.Getter
-  private loggedInUser!: UserData
+  @Auth.State("user")
+  public loggedInUser!: UserData
 
   @Auth.Action
-  private logOut!: () => Promise<ResponseData>
+  private logOut!: () => Promise<void>
 
-  handleSignOut() {
-    this.logOut().then(
+  async handleSignOut() {
+    await this.logOut().then(
         () => {
           this.$router.push("/login")
         },

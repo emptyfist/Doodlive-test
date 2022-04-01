@@ -13,7 +13,7 @@ export default createStore({
   actions: {
   },
   modules: {
-    Auth,
-    Chat
+    AuthModule: Auth,
+    ChatModule: Chat
   }
 })

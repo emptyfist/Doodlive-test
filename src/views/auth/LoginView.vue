@@ -54,33 +54,28 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import { namespace } from "vuex-class"
+import { getModule } from 'vuex-module-decorators'
 import type { LoginData, ResponseData } from '@/@types'
+import store from '@/store'
+import Auth from '@/store/modules/auth.module'
 
-const Auth = namespace("Auth")
+const authModule: Auth = getModule(Auth, store)
 
 @Options({
   components: {
   }
 })
 export default class LoginView extends Vue {
-  private user: LoginData = { email: "", password: "" }
+  private user: LoginData = { email: '', password: '' }
   private loading = false
-  private message = ""
-
-  @Auth.Getter
-  private isLoggedIn!: boolean;
-
-  @Auth.Action
-  private login!: (data: LoginData) => Promise<ResponseData>
+  private message = ''
+  private isLoggedIn: boolean = authModule.isLoggedIn
 
   async userLogin() {
-    this.loading = true;
-
+    this.loading = true
     if (this.user.email && this.user.password) {
-      await this.login(this.user).then(
+      await authModule.login(this.user).then(
         () => {
-          console.log('5')
           this.$router.push("/home")
         },
         (error: ResponseData) => {

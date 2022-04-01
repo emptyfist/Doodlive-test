@@ -18,10 +18,10 @@ getAnalytics(firebase)
 
 getAuth().onAuthStateChanged((user) => {
   if (user) {
-    store.commit("Auth/loginSuccess", user)
+    store.commit("AuthModule/loginSuccess", user)
   } else {
-    store.commit("Auth/loginSuccess", null)
-    store.commit("Auth/logout")
+    store.commit("AuthModule/loginSuccess", null)
+    store.commit("AuthModule/logout")
   }
 })
 

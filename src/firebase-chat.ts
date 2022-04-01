@@ -1,6 +1,6 @@
 import store from '@/store'
 import { getModule } from 'vuex-module-decorators'
-import AuthModule from '@/store/modules/auth.module'
+import Auth from '@/store/modules/auth.module'
 import {
   getFirestore,
   collection,
@@ -14,7 +14,7 @@ import {
 } from 'firebase/firestore'
 
 export function useChat() {
-  const authModule: AuthModule = getModule(AuthModule, store)
+  const authModule: Auth = getModule(Auth, store)
     
   const user = authModule.loggedInUser
   const isLogin = authModule.isLoggedIn

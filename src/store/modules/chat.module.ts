@@ -1,6 +1,9 @@
 import { VuexModule, Module } from 'vuex-module-decorators'
 
-@Module({ namespaced: true })
+@Module({
+  namespaced: true,
+  name: 'ChatModule'
+})
 class Chat extends VuexModule {
 }
 

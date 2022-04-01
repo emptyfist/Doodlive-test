@@ -1,12 +1,15 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
 import AuthService from '@/services/AuthService'
 import { UserCredential } from "firebase/auth"
-import type { LoginData, RegisterData, ResponseData } from '@/@types'
+import type { LoginData, RegisterData, ResponseData, UserData } from '@/@types'
 
 const storedUser = localStorage.getItem('user')
 
-@Module({ namespaced: true, name: 'AuthModule' })
-class User extends VuexModule {
+@Module({  
+  namespaced: true,
+  name: 'AuthModule'
+})
+class Auth extends VuexModule {
   public status = storedUser ? { loggedIn: true } : { loggedIn: false }
   public user = storedUser ? JSON.parse(storedUser) : null
 
@@ -14,9 +17,12 @@ class User extends VuexModule {
   public loginSuccess(user: UserCredential): void {
     this.status.loggedIn = true
     this.user = user?.user != null ? user?.user : null
+    console.log('auth.module.ts -> logged-in user : ', this.user)
     localStorage.setItem('user', JSON.stringify({
-      email: this.user?.email != null ? this.user?.email : ''
+      email: this.user?.email != null ? this.user?.email : '',
+      photoURL: ''
     }));
+    console.log('auth.module.ts -> user in local storage : ', localStorage.getItem('user'))
   }
 
   @Mutation
@@ -44,10 +50,8 @@ class User extends VuexModule {
 
   @Action({ rawError: true })
   async login(data: LoginData): Promise<UserCredential> {
-    console.log('1')
     return await AuthService.login(data.email, data.password).then(
       user => {
-        console.log('4')
         this.context.commit('loginSuccess', user)
         return Promise.resolve(user)
       },
@@ -63,9 +67,11 @@ class User extends VuexModule {
   }
 
   @Action
-  logOut(): void {
-    AuthService.logout()
-    this.context.commit('logout')
+  async logOut(): Promise<void> {
+    return await AuthService.logout()
+      .then(() => {
+        this.context.commit('logout')
+      })
   }
 
   @Action({ rawError: true })
@@ -119,10 +125,10 @@ class User extends VuexModule {
     return this.status.loggedIn
   }
 
-  get loggedInUser(): UserCredential {
+  get loggedInUser(): UserData {
     return this.user
   }
 
 }
 
-export default User;
+export default Auth;

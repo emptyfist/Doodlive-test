@@ -67,13 +67,16 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import { namespace } from 'vuex-class'
+import { getModule } from 'vuex-module-decorators'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import * as yup from 'yup'
 import type { RegisterData, ResponseData } from '@/@types'
 import { boolean } from 'yup/lib/locale'
 
-const Auth = namespace("Auth")
+import store from '@/store'
+import Auth from '@/store/modules/auth.module'
+
+const authModule: Auth = getModule(Auth, store)
 
 @Options({
   props: {
@@ -86,20 +89,17 @@ const Auth = namespace("Auth")
   }
 })
 export default class SignupView extends Vue {
-  private user: RegisterData = { name: '', email: '', password: '' }
-  private confirmPassword = ''
-  private loading = false
-  private message = ''
+  public user: RegisterData = { name: '', email: '', password: '' }
+  public confirmPassword = ''
+  public loading = false
+  public message = ''
   private schema = yup.object().shape({
     name: yup.string().required(),
     email: yup.string().required().email(),
     password: yup.string().required().min(8)
   });
 
-  @Auth.Action
-  private register!: (data: RegisterData) => Promise<ResponseData>
-
-  userRegistration() {
+  async userRegistration() {
     this.loading = false
     if (this.user.name == '' || this.user.email == '' || this.user.password == '') {
       alert('Please make sure the input values !')
@@ -114,7 +114,7 @@ export default class SignupView extends Vue {
     }
     
     this.loading = true
-    this.register(this.user).then(
+    await authModule.register(this.user).then(
       () => {
         this.$router.push("/login")
       },
