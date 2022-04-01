@@ -62,13 +62,15 @@ export default {
     const isLoggedIn = authModule.isLoggedIn
 
     const { messages, sendMessage } = useChat()
+    console.log('ChatItem.vue -> messages : ', messages)
 
     const bottom = ref(null)
     watch(
-      messages,
-      () => {
+      [messages, () => messages],
+      (newVal, oldVal) => {
         nextTick(() => {
-          console.log('123')
+          console.log('newVal = ', newVal)
+          console.log('oldVal = ', oldVal)
           // bottom.value?.scrollIntoView({ behavior: 'smooth' })
         })
       },
