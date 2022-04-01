@@ -1,0 +1,25 @@
+.logo-link {
+  margin-left: 50px;
+}
+.top-main-nav {
+  padding-right: 5px;
+  .logout-link {
+    background-color: transparent;
+    border: none;
+    padding: 0 10px !important;
+    .btn-logout {
+      width: 35px !important;
+    }
+  }
+}
+
+.profile-image {
+  margin-left: 20px;
+  width: 35px !important;
+  height: 35px !important;
+}
+
+.user-email {
+  align-items: center;
+  align-self: center;
+}
