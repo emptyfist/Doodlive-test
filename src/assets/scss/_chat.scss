@@ -3,10 +3,12 @@
   position: relative;
   background-color: #183038;
   padding: 5px 0 0 0;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   > div {
     &:first-child {
       padding: 0 20px;
+      max-height: calc(100vh - 255px);
+      overflow-y: scroll;
     }
   }
   .title-container {
