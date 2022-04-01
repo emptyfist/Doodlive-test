@@ -1,10 +1,16 @@
 <template>  
   <div class="container-sm mt-20">
-    <div class="mx-5">
+    <div>
+      <div class="title-container d-flex mt-20">
+        <p class="chat-title">
+          Chat
+          <span class="chat-live-title">Live</span>
+        </p>
+      </div>
       <MessageItem
         v-for="{ id, text, userPhotoURL, userName, userId } in messages"
         :key="id"
-        :name="userName"
+        :username="userName"
         :photo-url="userPhotoURL"
         :sender="userId === user?.uid"
       >

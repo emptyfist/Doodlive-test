@@ -15,13 +15,60 @@ import {
   serverTimestamp
 } from 'firebase/firestore'
 
-export function useChat() {
-  const authModule: Auth = getModule(Auth, store)
+const authModule: Auth = getModule(Auth, store)
     
+const firestore: Firestore = getFirestore()
+const messagesCollectionRef: CollectionReference<DocumentData> = collection(firestore, 'messages')
+const messagesQuery = query(messagesCollectionRef, orderBy('createdAt', 'desc'), limit(100))
+
+export function useChat() {
   const messages: Array<DocumentData> = []
-  const firestore: Firestore = getFirestore()
-  const messagesCollectionRef: CollectionReference<DocumentData> = collection(firestore, 'messages')
-  const messagesQuery = query(messagesCollectionRef, orderBy('createdAt', 'desc'), limit(100))
+
+  // dummy data ...
+  messages.push({
+    id: 'nqjJLEZ9aFmjjQ3EBC0g',
+    text: 'Hi, I am ICanDoEverything.',
+    userPhotoURL: 'https://lh3.googleusercontent.com/a/AATXAJxkyWgIoQbhoNQapp6ChdCMqhAK6KDNoLBjP-lk=s96-c',
+    userName: 'everything icando',
+    userId: 'nyps3c0hWwTWQaAtXXmjidvLUFl1',
+    createdAt: {
+      nanoseconds: 91000000,
+      seconds: 1648792680
+    }
+  })
+  messages.push({
+    id: 'R55R7ca0wvIGS5LoXjd7',
+    text: 'Great.',
+    userPhotoURL: 'https://lh3.googleusercontent.com/a/AATXAJxkyWgIoQbhoNQapp6ChdCMqhAK6KDNoLBjP-lk=s96-c',
+    userName: 'everything icando',
+    userId: 'nyps3c0hWwTWQaAtXXmjidvLUFl1',
+    createdAt: {
+      nanoseconds: 260000000,
+      seconds: 1648792853
+    }
+  })
+  messages.push({
+    id: 'q0cjqV9DiDiV51OICX3P',
+    text: 'Happy New Year',
+    userPhotoURL: 'https://lh3.googleusercontent.com/a/AATXAJxkyWgIoQbhoNQapp6ChdCMqhAK6KDNoLBjP-lk=s96-c',
+    userName: 'everything icando',
+    userId: 'nyps3c0hWwTWQaAtXXmjidvLUFl1',
+    createdAt: {
+      nanoseconds: 144000000,
+      seconds: 1648792856
+    }
+  })
+  messages.push({
+    id: 'btdz3SbU2f6OKlCaVsQT',
+    text: 'I still can\'\t see the message list.',
+    userPhotoURL: 'https://lh3.googleusercontent.com/a/AATXAJxkyWgIoQbhoNQapp6ChdCMqhAK6KDNoLBjP-lk=s96-c',
+    userName: 'everything icando',
+    userId: 'nyps3c0hWwTWQaAtXXmjidvLUFl1',
+    createdAt: {
+      nanoseconds: 62000000,
+      seconds: 1648793217
+    }
+  })
 
   const unsubscribe = onSnapshot(messagesQuery, (querySnapshot) => {
     querySnapshot.forEach((doc) => {

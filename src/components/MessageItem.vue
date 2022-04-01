@@ -1,9 +1,7 @@
 <template>
   <div class="message">
-    <span v-if="!sender">@{{ name }}</span>
     <div
-      :class="sender ? 'flex-row-reverse' : ''"
-      class="flex"
+      class="d-flex"
     >
       <AvatarItem
         :src="photoUrl"
@@ -13,6 +11,9 @@
         :class="sender ? 'bg-green-500' : 'bg-gray-300'"
         class="text w-3/4"
       >
+        <span class="username">
+          @{{ username }}:
+        </span>
         <slot></slot>
       </div>
     </div>
@@ -25,7 +26,7 @@ import AvatarItem from './AvatarItem.vue'
 export default {
   components: { AvatarItem },
   props: {
-    name: { type: String, default: '' },
+    username: { type: String, default: '' },
     photoUrl: { type: String, default: '' },
     sender: { type: Boolean, default: false }
   }
