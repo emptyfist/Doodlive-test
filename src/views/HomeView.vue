@@ -45,11 +45,11 @@ export default class HomeView extends Vue {
         // console.log('video and hls.js are now bound together !')
         let stream = 'https://stream.mux.com/AHtNUiG600zlYSjecA5Nnp6OPitww802KLUnX023WnL118.m3u8'
         hls.loadSource(stream)
-        hls.on(Hls.Events.MANIFEST_PARSED, (ev, data) => {
+        // hls.on(Hls.Events.MANIFEST_PARSED, (ev, data) => {
           // console.log('manifest loaded, found ' + data.levels.length + ' quality level')
           // console.log('Trying to load and play a streaming video.')
           // video.play()
-        })
+        // })
       });
     } else {
       // console.log('Hls is not supported !')

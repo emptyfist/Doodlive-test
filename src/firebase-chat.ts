@@ -18,9 +18,6 @@ import {
 export function useChat() {
   const authModule: Auth = getModule(Auth, store)
     
-  const user = authModule.loggedInUser
-  const isLogin = authModule.isLoggedIn
-
   const messages: Array<DocumentData> = []
   const firestore: Firestore = getFirestore()
   const messagesCollectionRef: CollectionReference<DocumentData> = collection(firestore, 'messages')
@@ -28,19 +25,15 @@ export function useChat() {
 
   const unsubscribe = onSnapshot(messagesQuery, (querySnapshot) => {
     querySnapshot.forEach((doc) => {
+      console.log('message : ', doc.data())
       messages.push(doc.data())
     })
   })
   unsubscribe()
   
   const sendMessage = (text: string) => {
-    console.log('send message -> text : ', text)
     if (!authModule.isLoggedIn) return
     const { photoURL, uid, displayName } = authModule.loggedInUser
-
-    console.log('photoURL : ', photoURL)
-    console.log('uid : ', uid)
-    console.log('displayName : ', displayName)
 
     addDoc(messagesCollectionRef, {
       userName: displayName,
@@ -49,7 +42,6 @@ export function useChat() {
       text: text,
       createdAt: serverTimestamp()
     })
-    console.log('   sent message -> text : ', text)
   }
 
   /*const messages = ref([])

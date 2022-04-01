@@ -1,6 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
 import AuthService from '@/services/AuthService'
-import { UserCredential, User } from "firebase/auth"
+import { UserCredential } from "firebase/auth"
 import type { LoginData, RegisterData, ResponseData, UserData } from '@/@types'
 
 const storedUser = localStorage.getItem('user')

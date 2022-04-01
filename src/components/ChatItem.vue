@@ -1,17 +1,17 @@
 <template>  
-  <!-- <div class="container-sm mt-20">
+  <div class="container-sm mt-20">
     <div class="mx-5">
       <MessageItem
         v-for="{ id, text, userPhotoURL, userName, userId } in messages"
         :key="id"
         :name="userName"
         :photo-url="userPhotoURL"
-        :sender="userId === user?.email"
+        :sender="userId === user?.uid"
       >
         {{ text }}
       </MessageItem>
     </div>
-  </div> -->
+  </div>
   <div
     ref="bottom"
     class="mt-20"
@@ -40,14 +40,14 @@
 <script lang="ts">
 import { ref, watch, nextTick } from 'vue'
 import { getModule } from 'vuex-module-decorators'
-// import MessageItem from './MessageItem.vue'
+import MessageItem from './MessageItem.vue'
 import { useChat } from '@/firebase-chat'
 import store from '@/store'
 import Auth from '@/store/modules/auth.module'
 
 export default {
   components: {
-    // MessageItem
+    MessageItem
   },
   setup() {
     const authModule: Auth = getModule(Auth, store)
