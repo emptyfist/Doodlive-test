@@ -1,0 +1,111 @@
+.chat-container {
+  border-radius: 10px;
+  position: relative;
+  background-color: #183038;
+  padding: 5px 0 0 0;
+  margin-bottom: 30px;
+  > div {
+    &:first-child {
+      padding: 0 20px;
+    }
+  }
+  .title-container {
+    margin-top: 20px;
+    .chat-title {
+      color: #f6f8ff;
+      font-size: 18px;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      line-height: 140%;
+      letter-spacing: 0.6px;
+      .chat-live-title {
+        width: 45px;
+        height: 20px;
+        border-radius: 3px;
+        margin-left: 5px;
+        padding: 3px 8px;
+        background-color: #00cb51;
+        color: #f6f8ff;
+        font-size: 12px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 146%;
+        letter-spacing: 2px;
+        text-align: center;
+        align-items: center;
+        text-transform: uppercase;
+      }
+    }
+  }
+  .message {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    .username {
+      --tw-text-opacity: 1;
+      color: #00cb51;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 146%;
+      letter-spacing: 0.6px;
+      padding-right: 0.3rem;
+      white-space: break-spaces;
+    }
+    .avatar {
+      height: 2rem;
+      width: 2rem;
+      border-radius: 9999px;
+    }
+    .text {
+      margin-left: 0;
+      margin-right: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      --tw-text-opacity: 1;
+      color: #b8c0c8;
+      overflow-wrap: break-word;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 146%;
+      letter-spacing: 0.6px;
+      text-align: left;
+    }
+  }
+  .bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  .send-message-form {
+    border: 1.5px solid #f6f8ff;
+    box-sizing: border-box;
+    border-radius: 8px;
+    justify-content: end;
+    input {
+      padding: 8px 10px;
+      width: 100%;
+    }
+    button {
+      border: none;
+      background-color: #f6f8ff;
+      color: #383066;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 145%;
+      letter-spacing: 0.4px;
+      border-radius: 8px;
+      align-items: center;
+      text-align: center;
+    }
+  }
+}

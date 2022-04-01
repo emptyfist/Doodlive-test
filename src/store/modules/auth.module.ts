@@ -1,22 +1,41 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
 import AuthService from '@/services/AuthService'
 import { UserCredential } from "firebase/auth"
-import type { UserData, LoginData, RegisterData, ResponseData } from '@/@types'
+import type { LoginData, RegisterData, ResponseData, UserData } from '@/@types'
 
 const storedUser = localStorage.getItem('user')
 
-@Module({ namespaced: true })
-class User extends VuexModule {
+@Module({  
+  namespaced: true,
+  name: 'AuthModule'
+})
+class Auth extends VuexModule {
   public status = storedUser ? { loggedIn: true } : { loggedIn: false }
   public user = storedUser ? JSON.parse(storedUser) : null
 
   @Mutation
   public loginSuccess(user: UserCredential): void {
+    if (user == null) return
+
     this.status.loggedIn = true
-    this.user = user?.user != null ? user?.user : null
+    const tempUser = user?.user != null ? user?.user : null
+    if (tempUser == null) return
+
     localStorage.setItem('user', JSON.stringify({
-      email: this.user?.email != null ? this.user?.email : ''
-    }));
+      email: tempUser?.email != null ? tempUser?.email : '',
+      displayName: tempUser?.displayName != null ? tempUser?.displayName : '',
+      uid: tempUser?.uid != null ? tempUser?.uid : '',
+      photoURL: tempUser?.photoURL != null ? tempUser?.photoURL : '/avatar.png',   // sample avatar for demo show
+      providerId: tempUser?.providerId != null ? tempUser?.providerId : '',
+      phoneNumber: tempUser?.phoneNumber != null ? tempUser?.phoneNumber : '',
+      emailVerified: tempUser?.emailVerified != null ? tempUser?.emailVerified : '',
+      isAnonymous: tempUser?.isAnonymous != null ? tempUser?.isAnonymous : '',
+      accessToken: tempUser?.refreshToken != null ? tempUser?.refreshToken : '',
+      tenantId: tempUser?.tenantId != null ? tempUser?.tenantId : '',
+      creationTime: tempUser?.metadata != null && tempUser?.metadata.creationTime != null ? tempUser?.metadata.creationTime : '',
+      lastSignInTime: tempUser?.metadata != null && tempUser?.metadata.lastSignInTime != null ? tempUser?.metadata.lastSignInTime : '',
+    }))
+    this.user = tempUser
   }
 
   @Mutation
@@ -61,9 +80,11 @@ class User extends VuexModule {
   }
 
   @Action
-  logOut(): void {
-    AuthService.logout()
-    this.context.commit('logout')
+  async logOut(): Promise<void> {
+    return await AuthService.logout()
+      .then(() => {
+        this.context.commit('logout')
+      })
   }
 
   @Action({ rawError: true })
@@ -87,8 +108,7 @@ class User extends VuexModule {
   @Action({ rawError: true })
   async forgetPassword(data: string): Promise<ResponseData> {
     return await AuthService.forgetPassword(data).then(
-      res => {
-        console.log(res)
+      () => {
         return Promise.resolve({ code: true, msg: '' })
       },
       error => {
@@ -114,15 +134,13 @@ class User extends VuexModule {
   }
 
   get isLoggedIn(): boolean {
-    return this.status.loggedIn;
+    return this.status.loggedIn
   }
 
   get loggedInUser(): UserData {
-    return {
-      email: this.user?.email != null ? this.user?.email : ''
-    }
+    return this.user
   }
 
 }
 
-export default User;
+export default Auth;

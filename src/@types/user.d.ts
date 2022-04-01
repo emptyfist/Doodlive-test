@@ -1,7 +1,18 @@
 import { boolean } from "yup"
 
 export type UserData = {
-  email: string
+  email: string,
+  displayName: string
+  uid: string,
+  photoURL: string,
+  providerId: string,
+  phoneNumber: string,
+  emailVerified: boolean,
+  isAnonymous: boolean,
+  accessToken: string,
+  tenantId: string,
+  creationTime: string,
+  lastSignInTime: string
 }
 
 export type LoginData = {

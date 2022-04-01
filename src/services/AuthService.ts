@@ -37,8 +37,8 @@ class AuthService {
       })
   }
 
-  logout(): Promise<ResponseData> {
-    return signOut(getAuth()).then(() => {
+  async logout(): Promise<ResponseData> {
+    return await signOut(getAuth()).then(() => {
       return Promise.resolve({ code: true, msg: '' });
     });
   }

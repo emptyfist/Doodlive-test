@@ -1,0 +1,16 @@
+.video-container {
+  padding-right: 20px;
+  margin-bottom: 25px;
+  .video-box {
+    border: 2px solid #183038;
+    min-height: calc(100vh - 200px);
+    background-image: url("../video_cover.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 30px;
+    @media screen and (max-width: 768px) {
+      min-height: 300px;
+    }
+  }
+}

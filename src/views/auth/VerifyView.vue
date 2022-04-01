@@ -35,10 +35,13 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { boolean } from 'yup/lib/locale'
-import { namespace } from 'vuex-class'
+import { getModule } from 'vuex-module-decorators'
 import type { ResponseData } from '@/@types'
 
-const Auth = namespace("Auth")
+import store from '@/store'
+import Auth from '@/store/modules/auth.module'
+
+const authModule: Auth = getModule(Auth, store)
 
 @Options({
   props: {
@@ -50,15 +53,12 @@ const Auth = namespace("Auth")
   }
 })
 export default class VerifyView extends Vue {
-  private errMsg = ''
-  private isReady = false
-  private resendDisabled = true
-  private counter = 60
-  private int = -1
-  private isLoading = false
-  
-  @Auth.Action
-  private resendEmailVerification!: () => Promise<ResponseData>
+  public errMsg = ''
+  public isReady = false
+  public resendDisabled = true
+  public counter = 60
+  public int = -1
+  public isLoading = false
 
   get compCounter() {
     if (this.resendDisabled == false)
@@ -95,14 +95,13 @@ export default class VerifyView extends Vue {
   async resend() {
     this.isLoading = true
 
-    this.resendEmailVerification().then(
-        (data: ResponseData) => {
-          console.log('date : ' + data + ', Trying to login !')
+    await authModule.resendEmailVerification().then(
+        () => {
           this.$router.push("/login")
         },
         (error: ResponseData) => {
           this.isLoading = false
-          console.log(error)
+
           switch (error.msg) {
             case 'auth/too-many-requests':
                 this.errMsg = 'You made to many requests please wait some time...'

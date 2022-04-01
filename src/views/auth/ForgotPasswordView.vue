@@ -34,33 +34,31 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import { namespace } from "vuex-class"
+import { getModule } from 'vuex-module-decorators'
 import type { ResponseData } from '@/@types'
+import store from '@/store'
+import Auth from '@/store/modules/auth.module'
 
-const Auth = namespace("Auth")
+const authModule: Auth = getModule(Auth, store)
 
 @Options({
   components: {
   }
 })
 export default class ForgotPasswordView extends Vue {
-  private email = ''
-  private loading = false
-  private message = ''
+  public email = ''
+  public loading = false
+  public message = ''
 
-  @Auth.Action
-  private forgetPassword!: (data: string) => Promise<ResponseData>
-
-  forgetPasswordHandler() {
+  async forgetPasswordHandler() {
     this.loading = false
     
     if (this.email) {
       this.loading = true
 
-      this.forgetPassword(this.email).then(
-        (data: ResponseData) => {
+      await authModule.forgetPassword(this.email).then(
+        () => {
           this.loading = false
-          console.log(data)
           alert('Check your registered email to reset the password!')
           this.email = ''
         },

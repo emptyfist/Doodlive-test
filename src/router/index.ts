@@ -97,7 +97,6 @@ router.beforeEach(async (to, from, next) => {
       next("/")
     }
   } else {
-    console.log("else");
     if (user && !user.emailVerified) {
       next("/verify")
     } else {

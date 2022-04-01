@@ -5,7 +5,7 @@
     >
       <router-link
         to="/"
-        class="d-flex align-items-center text-dark text-decoration-none"
+        class="d-flex align-items-center text-dark text-decoration-none logo-link"
       >
         <img
           alt="Vue logo"
@@ -24,16 +24,11 @@
       </nav>
       <nav
         v-if="isLoggedIn"
-        class="d-inline-flex mt-2 mt-md-0 ms-md-auto"
+        class="d-inline-flex mt-2 mt-md-0 ms-md-auto top-main-nav"
       >
-        <a
-          class="me-3 py-2 text-decoration-none btn btn-dark btn-logout"
-          href="#"
-          @click="handleSignOut"
-        >
-          Logout
-        </a>
-        {{ loggedInUser?.email }}
+        <span class="user-email">
+          {{ loggedInUser?.email }}
+        </span>
         <img
           v-if="loggedInUser?.photoURL != null"
           :src="loggedInUser?.photoURL"
@@ -43,34 +38,49 @@
         />
         <img
           v-if="loggedInUser?.photoURL == null"
-          src="../assets/avatar.png"
+          src="/avatar.png"
           class="img-fluid profile-image"
           alt="profileImage"
         />
+        <a
+          class="me-3 py-2 text-decoration-none btn btn-dark logout-link"
+          href="#"
+          @click="handleSignOut"
+        >
+          <img
+            src="../assets/logout.svg"
+            class="img-fluid btn-logout"
+            alt="profileImage"
+          />
+        </a>
       </nav>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component'
-import { namespace } from 'vuex-class'
-import type { ResponseData, UserData } from '@/@types'
+import { Options, Vue } from 'vue-class-component'
+import { namespace } from "vuex-class"
+import type { UserData } from '@/@types'
 
-const Auth = namespace("Auth")
+const Auth = namespace("AuthModule")
 
+@Options({
+  components: {
+  }
+})
 export default class Navbar extends Vue {
   @Auth.Getter
-  private isLoggedIn!: boolean
+  public isLoggedIn!: boolean
 
-  @Auth.Getter
-  private loggedInUser!: UserData
+  @Auth.State("user")
+  public loggedInUser!: UserData
 
   @Auth.Action
-  private logOut!: () => Promise<ResponseData>
+  private logOut!: () => Promise<void>
 
-  handleSignOut() {
-    this.logOut().then(
+  async handleSignOut() {
+    await this.logOut().then(
         () => {
           this.$router.push("/login")
         },
