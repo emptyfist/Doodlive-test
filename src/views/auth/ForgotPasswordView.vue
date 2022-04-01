@@ -57,9 +57,8 @@ export default class ForgotPasswordView extends Vue {
       this.loading = true
 
       await authModule.forgetPassword(this.email).then(
-        (data: ResponseData) => {
+        () => {
           this.loading = false
-          console.log(data)
           alert('Check your registered email to reset the password!')
           this.email = ''
         },

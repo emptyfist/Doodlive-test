@@ -96,13 +96,12 @@ export default class VerifyView extends Vue {
     this.isLoading = true
 
     await authModule.resendEmailVerification().then(
-        (data: ResponseData) => {
-          console.log('date : ' + data + ', Trying to login !')
+        () => {
           this.$router.push("/login")
         },
         (error: ResponseData) => {
           this.isLoading = false
-          console.log(error)
+
           switch (error.msg) {
             case 'auth/too-many-requests':
                 this.errMsg = 'You made to many requests please wait some time...'

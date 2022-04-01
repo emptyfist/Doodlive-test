@@ -21,7 +21,6 @@ class Auth extends VuexModule {
     const tempUser = user?.user != null ? user?.user : null
     if (tempUser == null) return
 
-    console.log('auth.module.ts -> logged-in user : ', tempUser)
     localStorage.setItem('user', JSON.stringify({
       email: tempUser?.email != null ? tempUser?.email : '',
       displayName: tempUser?.displayName != null ? tempUser?.displayName : '',
@@ -109,8 +108,7 @@ class Auth extends VuexModule {
   @Action({ rawError: true })
   async forgetPassword(data: string): Promise<ResponseData> {
     return await AuthService.forgetPassword(data).then(
-      res => {
-        console.log(res)
+      () => {
         return Promise.resolve({ code: true, msg: '' })
       },
       error => {

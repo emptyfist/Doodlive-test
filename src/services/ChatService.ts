@@ -20,7 +20,7 @@ class ChatService {
   async getMessages(): Promise<ResponseData> {
     let messages = []
     const unsubscribe = onSnapshot(doc(firestore, "messages"), (doc) => {
-      console.log("Current message: ", doc.data())      
+      console.log("Current message: ", doc.data())
     });
     unsubscribe()
     return Promise.resolve({ code: true, msg: '' })

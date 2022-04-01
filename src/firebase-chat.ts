@@ -21,9 +21,6 @@ export function useChat() {
   const user = authModule.loggedInUser
   const isLogin = authModule.isLoggedIn
 
-  console.log('firebase-chat.ts -> user : ', user)
-  console.log('firebase-chat.ts -> isLogin : ', isLogin)
-
   const messages: Array<DocumentData> = []
   const firestore: Firestore = getFirestore()
   const messagesCollectionRef: CollectionReference<DocumentData> = collection(firestore, 'messages')

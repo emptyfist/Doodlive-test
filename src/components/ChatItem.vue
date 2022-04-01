@@ -55,9 +55,6 @@ export default {
     const user = authModule.loggedInUser
     const isLoggedIn = authModule.isLoggedIn
 
-    console.log('ChatItem.vue -> isLoggedIn : ', isLoggedIn)
-    console.log('ChatItem.vue -> logged-in user : ', user)
-
     const { messages, sendMessage } = useChat()
 
     const bottom = ref(null)

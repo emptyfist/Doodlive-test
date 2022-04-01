@@ -106,8 +106,6 @@ export default class SignupView extends Vue {
       return
     }
 
-    console.log('this.user.password = ', this.user.password)
-    console.log('this.confirmPassword = ', this.confirmPassword)
     if (this.user.password != this.confirmPassword) {
       alert('Passwords do not match !')
       return

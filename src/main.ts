@@ -18,10 +18,8 @@ getAnalytics(firebase)
 
 getAuth().onAuthStateChanged((user) => {
   if (user) {
-    console.log('aaa, user : ', user)
     store.commit("AuthModule/loginSuccess", user)
   } else {
-    console.log('bbb')
     store.commit("AuthModule/loginSuccess", null)
     store.commit("AuthModule/logout")
   }
