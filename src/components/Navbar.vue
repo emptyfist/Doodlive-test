@@ -5,7 +5,7 @@
     >
       <router-link
         to="/"
-        class="d-flex align-items-center text-dark text-decoration-none"
+        class="d-flex align-items-center text-dark text-decoration-none logo-link"
       >
         <img
           alt="Vue logo"
@@ -24,16 +24,11 @@
       </nav>
       <nav
         v-if="isLoggedIn"
-        class="d-inline-flex mt-2 mt-md-0 ms-md-auto"
+        class="d-inline-flex mt-2 mt-md-0 ms-md-auto top-main-nav"
       >
-        <a
-          class="me-3 py-2 text-decoration-none btn btn-dark btn-logout"
-          href="#"
-          @click="handleSignOut"
-        >
-          Logout
-        </a>
-        {{ loggedInUser?.email }}
+        <span class="user-email">
+          {{ loggedInUser?.email }}
+        </span>
         <img
           v-if="loggedInUser?.photoURL != null"
           :src="loggedInUser?.photoURL"
@@ -47,6 +42,17 @@
           class="img-fluid profile-image"
           alt="profileImage"
         />
+        <a
+          class="me-3 py-2 text-decoration-none btn btn-dark logout-link"
+          href="#"
+          @click="handleSignOut"
+        >
+          <img
+            src="../assets/logout.svg"
+            class="img-fluid btn-logout"
+            alt="profileImage"
+          />
+        </a>
       </nav>
     </div>
   </div>

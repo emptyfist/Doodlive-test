@@ -162,7 +162,10 @@ input:focus ~ .highlight {
   to 	{ width: 0; background: transparent; }
 }
 
+/* home page */
+
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 @import './_auth.scss';
 @import './_navbar.scss';
+@import './_video.scss';
 @import './_chat.scss';

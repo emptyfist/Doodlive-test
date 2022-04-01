@@ -2,17 +2,19 @@
   <div class="home">
     <div class="container">
       <div class="row">
-        <div class="col-md-8">
-          <video
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 video-container">
+          <div class="video-box">            
+          </div>
+          <!-- <video
             id="dPlayerVideoMain"
             ref="refdVideo"
             width="100%"
             height="640"
             controls
           >
-          </video>
+          </video> -->
         </div>
-        <div class="col-md-4 chat-container">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 chat-container">
           <ChatItem />
         </div>
       </div>
@@ -22,7 +24,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import Hls from 'hls.js'
+// import Hls from 'hls.js'
 import ChatItem from '@/components/ChatItem.vue'
 
 @Options({
@@ -34,7 +36,7 @@ import ChatItem from '@/components/ChatItem.vue'
 })
 export default class HomeView extends Vue {
   mounted() {
-    if (Hls.isSupported()) {
+    /*if (Hls.isSupported()) {
       // console.log('Hls is supported !')
 
       let video = this.$refs["refdVideo"]
@@ -53,7 +55,7 @@ export default class HomeView extends Vue {
       });
     } else {
       // console.log('Hls is not supported !')
-    }
+    }*/
   }
 }
 </script>

@@ -7,6 +7,7 @@
           v-model="user.email"
           type="email"
           required
+          autocomplete=""
         />
         <span class="highlight"></span>
         <span class="bar"></span>

@@ -1,9 +1,9 @@
 .chat-container {
-  max-width: 500px;
   border-radius: 10px;
   position: relative;
   background-color: #183038;
   padding: 5px 0 0 0;
+  margin-bottom: 30px;
   > div {
     &:first-child {
       padding: 0 20px;
@@ -54,6 +54,7 @@
       line-height: 146%;
       letter-spacing: 0.6px;
       padding-right: 0.3rem;
+      white-space: break-spaces;
     }
     .avatar {
       height: 2rem;
@@ -87,8 +88,10 @@
     border: 1.5px solid #f6f8ff;
     box-sizing: border-box;
     border-radius: 8px;
+    justify-content: end;
     input {
       padding: 8px 10px;
+      width: 100%;
     }
     button {
       border: none;
@@ -97,7 +100,7 @@
       font-family: 'Poppins';
       font-style: normal;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 18px;
       line-height: 145%;
       letter-spacing: 0.4px;
       border-radius: 8px;

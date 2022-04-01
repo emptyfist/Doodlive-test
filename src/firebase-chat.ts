@@ -34,7 +34,7 @@ export function useChat() {
   
   const sendMessage = (text: string) => {
     if (!authModule.isLoggedIn) return
-    console.log('authModule.loggedInUser = ', authModule.loggedInUser)
+    // console.log('authModule.loggedInUser = ', authModule.loggedInUser)
     const { email, photoURL, uid, displayName } = authModule.loggedInUser
 
     addDoc(messagesCollectionRef, {
