@@ -43,7 +43,7 @@
         />
         <img
           v-if="loggedInUser?.photoURL == null"
-          src="../assets/avatar.png"
+          src="/avatar.png"
           class="img-fluid profile-image"
           alt="profileImage"
         />

@@ -10,7 +10,9 @@ import {
   query,
   orderBy,
   limit,
-  onSnapshot
+  onSnapshot,
+  addDoc,
+  serverTimestamp
 } from 'firebase/firestore'
 
 export function useChat() {
@@ -36,6 +38,21 @@ export function useChat() {
   
   const sendMessage = (text: string) => {
     console.log('send message -> text : ', text)
+    if (!authModule.isLoggedIn) return
+    const { photoURL, uid, displayName } = authModule.loggedInUser
+
+    console.log('photoURL : ', photoURL)
+    console.log('uid : ', uid)
+    console.log('displayName : ', displayName)
+
+    addDoc(messagesCollectionRef, {
+      userName: displayName,
+      userId: uid,
+      userPhotoURL: photoURL,
+      text: text,
+      createdAt: serverTimestamp()
+    })
+    console.log('   sent message -> text : ', text)
   }
 
   /*const messages = ref([])

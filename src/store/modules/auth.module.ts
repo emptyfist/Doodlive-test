@@ -1,6 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
 import AuthService from '@/services/AuthService'
-import { UserCredential } from "firebase/auth"
+import { UserCredential, User } from "firebase/auth"
 import type { LoginData, RegisterData, ResponseData, UserData } from '@/@types'
 
 const storedUser = localStorage.getItem('user')
@@ -15,14 +15,28 @@ class Auth extends VuexModule {
 
   @Mutation
   public loginSuccess(user: UserCredential): void {
+    if (user == null) return
+
     this.status.loggedIn = true
-    this.user = user?.user != null ? user?.user : null
-    console.log('auth.module.ts -> logged-in user : ', this.user)
+    const tempUser = user?.user != null ? user?.user : null
+    if (tempUser == null) return
+
+    console.log('auth.module.ts -> logged-in user : ', tempUser)
     localStorage.setItem('user', JSON.stringify({
-      email: this.user?.email != null ? this.user?.email : '',
-      photoURL: ''
-    }));
-    console.log('auth.module.ts -> user in local storage : ', localStorage.getItem('user'))
+      email: tempUser?.email != null ? tempUser?.email : '',
+      displayName: tempUser?.displayName != null ? tempUser?.displayName : '',
+      uid: tempUser?.uid != null ? tempUser?.uid : '',
+      photoURL: tempUser?.photoURL != null ? tempUser?.photoURL : '/avatar.png',   // sample avatar for demo show
+      providerId: tempUser?.providerId != null ? tempUser?.providerId : '',
+      phoneNumber: tempUser?.phoneNumber != null ? tempUser?.phoneNumber : '',
+      emailVerified: tempUser?.emailVerified != null ? tempUser?.emailVerified : '',
+      isAnonymous: tempUser?.isAnonymous != null ? tempUser?.isAnonymous : '',
+      accessToken: tempUser?.refreshToken != null ? tempUser?.refreshToken : '',
+      tenantId: tempUser?.tenantId != null ? tempUser?.tenantId : '',
+      creationTime: tempUser?.metadata != null && tempUser?.metadata.creationTime != null ? tempUser?.metadata.creationTime : '',
+      lastSignInTime: tempUser?.metadata != null && tempUser?.metadata.lastSignInTime != null ? tempUser?.metadata.lastSignInTime : '',
+    }))
+    this.user = tempUser
   }
 
   @Mutation

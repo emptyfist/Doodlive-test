@@ -1,6 +1,6 @@
 <template>  
-  <div class="container-sm mt-20">
-    <!-- <div class="mx-5">
+  <!-- <div class="container-sm mt-20">
+    <div class="mx-5">
       <MessageItem
         v-for="{ id, text, userPhotoURL, userName, userId } in messages"
         :key="id"
@@ -11,7 +11,7 @@
         {{ text }}
       </MessageItem>
     </div>
-  </div>
+  </div> -->
   <div
     ref="bottom"
     class="mt-20"
@@ -33,14 +33,14 @@
       >
         Send
       </button>
-    </form> -->
+    </form>
   </div>
 </template>
 
 <script lang="ts">
 import { ref, watch, nextTick } from 'vue'
 import { getModule } from 'vuex-module-decorators'
-import MessageItem from './MessageItem.vue'
+// import MessageItem from './MessageItem.vue'
 import { useChat } from '@/firebase-chat'
 import store from '@/store'
 import Auth from '@/store/modules/auth.module'
@@ -53,14 +53,14 @@ export default {
     const authModule: Auth = getModule(Auth, store)
     
     const user = authModule.loggedInUser
-    const isLogin = authModule.isLoggedIn
+    const isLoggedIn = authModule.isLoggedIn
 
-    console.log('ChatItem.vue -> isLogin : ', isLogin)
+    console.log('ChatItem.vue -> isLoggedIn : ', isLoggedIn)
     console.log('ChatItem.vue -> logged-in user : ', user)
 
     const { messages, sendMessage } = useChat()
 
-    /*const bottom = ref(null)
+    const bottom = ref(null)
     watch(
       messages,
       () => {
@@ -78,7 +78,7 @@ export default {
       message.value = ''
     }
 
-    return { user, isLogin, messages, bottom, message, send }*/
+    return { user, isLoggedIn, messages, bottom, message, send }
   }  
 }
 </script>
