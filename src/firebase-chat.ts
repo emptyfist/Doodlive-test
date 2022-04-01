@@ -73,10 +73,9 @@ export function useChat() {
   } as DocumentData)*/
 
   const unsubscribe = onSnapshot(messagesQuery, (querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      messages.push(doc.data())
-    })
-    messages = messages.reverse()
+    messages = querySnapshot.docs
+      .map(doc => ({ id: doc.id, ...doc.data() }))
+      .reverse()
 
     messages.forEach(each => {
       console.log('message : ', each)
