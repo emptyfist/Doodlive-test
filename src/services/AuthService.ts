@@ -14,10 +14,14 @@ import {
 import type { ResponseData } from '@/@types'
 
 class AuthService {
-  async login(email: string, password: string): Promise<UserCredential> {
+  async login(email: string, password: string): Promise<User | UserCredential> {
     return await signInWithEmailAndPassword(getAuth(), email, password)
       .then((user: UserCredential) => {
-        return Promise.resolve(user)
+        let tempUser:User | UserCredential | undefined | null = user?.user != null ? user?.user : null
+        if (tempUser == null)
+          tempUser = user
+
+        return Promise.resolve(tempUser)
       })
       .catch((error) => {
         alert(error.code)

@@ -43,6 +43,7 @@
           alt="profileImage"
         />
         <a
+          v-if="isLoggedIn"
           class="me-3 py-2 text-decoration-none btn btn-dark logout-link"
           href="#"
           @click="handleSignOut"
