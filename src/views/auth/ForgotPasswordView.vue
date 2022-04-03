@@ -2,30 +2,34 @@
   <div class="align-items-center horizontal-center vertical-center auth-container">
     <form @submit.prevent="forgetPasswordHandler">
       <h2>Reset Password</h2>
-      <div class="form-group">
-        <label>Email address</label>
+      <div class="form-group mt-4">
         <input
           v-model="email"
           type="email"
-          class="form-control form-control-lg"
+          required
+          autocomplete=""
         />
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>Email address</label>
       </div>
       <button
         type="submit"
-        class="btn btn-dark btn-lg btn-block"
+        class="btn btn-dark btn-pwd-reset mt-2"
         :disabled="loading"
       >
         <span
           v-show="loading"
           class="spinner-border spinner-border-sm"
         ></span>
-        <span>Reset password</span>
+        <span>Continue</span>
       </button>
       <p class="forgot-password text-right mt-2 mb-4">
+        Go to
         <router-link
-          to="/forgot-password"
+          to="/login"
         >
-          Forgot password ?
+          Login ?
         </router-link>
       </p>
     </form>

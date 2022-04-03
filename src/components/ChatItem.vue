@@ -1,5 +1,9 @@
 <template>  
-  <div class="container-sm mt-20">
+  <div
+    id="chat-log-container"
+    ref="chatLog"
+    class="container-sm mt-20"
+  >
     <div>
       <div class="title-container d-flex mt-20">
         <p class="chat-title">
@@ -45,10 +49,8 @@
 </template>
 
 <script lang="ts">
-import { ref, watch, nextTick } from 'vue'
+import { ref, Ref, watch, nextTick } from 'vue'
 import { getModule } from 'vuex-module-decorators'
-import { DocumentData } from 'firebase/firestore'
-import _ from "lodash"
 import MessageItem from './MessageItem.vue'
 import { useChat } from '@/firebase-chat'
 import store from '@/store'
@@ -66,12 +68,15 @@ export default {
 
     const { messages, sendMessage } = useChat()
 
-    const bottom = ref(null)
+    const bottom: Ref<Element | null> = ref<Element | null>(null)
     watch(
-      (messages: Array<DocumentData>) => _.cloneDeep(messages),
+      messages,
       (/*newVal, oldVal*/) => {
         nextTick(() => {
-          // bottom.value?.scrollIntoView({ behavior: 'smooth' })
+          console.log('   scrolling to bottom !')
+          bottom.value?.scrollIntoView({ behavior: 'smooth' })
+
+          // const container = this.$refs["chatLog"] // this.$el.querySelector("#chat_log_container");
         })
       },
       { deep: true }
